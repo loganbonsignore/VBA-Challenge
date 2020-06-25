@@ -1,0 +1,112 @@
+Sub VBA_HW()
+    Dim ws As Worksheet
+    Dim lastrow As Long
+    Dim ticker As String
+    Dim volume As Double
+    Dim closing_price As Double
+    Dim open_price As Double
+    Dim price_change As Double
+    Dim percent_change As Double
+    Dim summary_table_row As Integer
+
+    'Define starter variables
+    volume = 0
+    summary_table_row = 2
+
+
+    For Each ws In Worksheets
+        ticker = ws.Cells(2, 1).Value
+        open_price = ws.Cells(2, 3).Value
+        lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+        For i = 2 To lastrow
+        closing_price = ws.Cells(i, 6).Value
+        volume = volume + ws.Cells(i, 7).Value
+            If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then 'new ticker
+                'calculate price change
+                price_change = closing_price - open_price
+                'calculate percent change
+                If open_price <> 0 Then
+                    percent_change = price_change / open_price
+                Else
+                    percent_change = 100
+                End If
+                'Put values in summary table
+                ws.Cells(summary_table_row, 9).Value = ticker
+                ws.Cells(summary_table_row, 10).Value = price_change
+                If price_change > 0 Then
+                    ws.Range("J" & summary_table_row).Interior.ColorIndex = 4
+                Else
+                    ws.Range("J" & summary_table_row).Interior.ColorIndex = 3
+                End If
+                ws.Cells(summary_table_row, 11).Value = percent_change
+                ws.Cells(summary_table_row, 12).Value = volume
+                'make volume zero
+                volume = 0
+                'add another row to summary table
+                summary_table_row = summary_table_row + 1
+                'new open_price
+                open_price = ws.Cells(i + 1, 3).Value
+                'new ticker
+                ticker = ws.Cells(i + 1, 1).Value
+            End If
+        Next i
+        'reset summary_table_row
+        summary_table_row = 2
+        'add summary headers
+        ws.Range("I1").Value = "Ticker"
+        ws.Range("J1").Value = "Price Change"
+        ws.Range("K1").Value = "Percent Change"
+        ws.Range("L1").Value = "Total Volume"
+        'Autofit columns
+        ws.Columns("A:L").AutoFit
+        
+    Next ws
+End Sub
+
+'Challenge:
+'Code does not run but I gave it my best shot :)
+
+'Sub summary()
+'    Dim ws As Worksheet
+'    Dim highest_pct_increase As Double
+'    Dim lowest_pct_increase As Double
+'    Dim highest_total_volume As Double
+'    Dim lastrow As Long
+'    Dim price_array() As Double
+'    Dim percentage_array() As Double
+'    Dim volume_array() As Double
+'
+'    lastrow = ws.Cells(Rows.Count, 9).End(xlUp).Rows
+'    percentage_array = ws.Range("K2:K10").Value
+'    volume_array = ws.Range("L2:L" & lastrow).Value
+'    min_pct = WorksheetFunction.Min(percentage_array)
+'    max_pct = WorksheetFunction.Max(percentage_array)
+'    max_vol = WorksheetFunction.Max(volume_array)
+'
+'    For Each ws In Worksheets
+'        For i = 2 To lastrow
+'            If Cells(i, "k").Value = min_pct Then
+'                min_pct_ticker = ws.Cells(i, "I").Value
+'                Range("N2").Value = "Lowest % Change"
+'                Range("O2").Value = min_pct_ticker
+'                Range("P2").Value = mic_pct
+'            ElseIf Cells(i, "k").Value = max_pct Then
+'                max_pct_ticker = ws.Cells(i, "I").Value
+'                Range("N3").Value = "Highest Pct Change"
+'                Range("O3").Value = max_pct_ticker
+'                Range("P3").Value = max_pct
+'            ElseIf Cells(i, "L").Value = max_vol Then
+'                max_vol_ticker = Cells(i, "I").Value
+'                Range("N4").Value = "Highest Pct Change"
+'                Range("O4").Value = max_pct_ticker
+'                Range("P4").Value = max_pct
+'            End If
+'        Next i
+'    Next ws
+'
+'End Sub
+
+
+
+

@@ -1,2 +1,7 @@
 # VBA-Challenge
- VBA HW screenshots and scripts
+VBA scripts and screenshots for HW assignement.
+
+
+Logan Bonsignore
+Data Analytics, University of Denver
+6/25/2020
