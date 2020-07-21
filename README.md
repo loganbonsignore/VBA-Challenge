@@ -1,7 +1,37 @@
-# VBA-Challenge
-VBA scripts and screenshots for HW assignement.
+# VBA Homework - The VBA of Wall Street
 
+### Files
 
-Logan Bonsignore
-Data Analytics, University of Denver
-6/25/2020
+* [Test Data](Resources/alphabetical_testing.xlsx) - Use this while developing your scripts.
+
+* [Stock Data](Resources/Multiple_year_stock_data.xlsx) - Run your scripts on this data to generate the final homework report.
+
+### Stock market analyst
+
+![stock Market](Images/stockmarket.jpg)
+
+## Instructions
+
+* Create a script that will loop through all the stocks for one year and output the following information.
+
+  * The ticker symbol.
+
+  * Yearly change from opening price at the beginning of a given year to the closing price at the end of that year.
+
+  * The percent change from opening price at the beginning of a given year to the closing price at the end of that year.
+
+  * The total stock volume of the stock.
+
+* You should also have conditional formatting that will highlight positive change in green and negative change in red.
+
+### Other Considerations
+
+* Use the sheet `alphabetical_testing.xlsx` while developing your code. This data set is smaller and will allow you to test faster. Your code should run on this file in less than 3-5 minutes.
+
+* Make sure that the script acts the same on each sheet. The joy of VBA is to take the tediousness out of repetitive task and run over and over again with a click of the button.
+
+- - -
+
+### Copyright
+
+Trilogy Education Services © 2019. All Rights Reserved.
